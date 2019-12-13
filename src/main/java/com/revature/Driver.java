@@ -9,7 +9,6 @@ public class Driver {
 		Scanner in = new Scanner(System.in);
 		int option = 0;
 		
-		
 
 		do {
 			System.out.println("So, whatchu tryna do? Hit them digits to pick ya potion.");
@@ -17,8 +16,13 @@ public class Driver {
 			System.out.println("2. Ball out");
 			System.out.println("3. Oooooh flex on em.");
 			System.out.println("4. Get back out there and make that paper");
+			try {
+				option = in.nextInt();
+			}
+			catch (InputMismatchException e) {
+				
+			}
 			
-			option = in.nextInt();
 		}while(option != 4);
 		
 		System.out.println("Aight, I'll catch you later.");
