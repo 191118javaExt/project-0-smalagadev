@@ -20,7 +20,7 @@ public class ConnectionUtil {
 		try{
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
-			logger.warn("Unable to connect to database.");
+			logger.warn("Unable to connect to database.", e);
 		}
 		
 		return conn;
