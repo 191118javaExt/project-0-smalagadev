@@ -1,3 +1,6 @@
+-- DROP TABLE IF EXISTS employee CASCADE;
+-- DROP TABLE IF EXISTS customer CASCADE;
+
 CREATE TABLE employee(
   emp_id SERIAL PRIMARY KEY,
   first_name VARCHAR(25) NOT NULL,
