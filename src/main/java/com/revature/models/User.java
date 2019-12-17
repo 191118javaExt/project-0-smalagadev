@@ -5,7 +5,6 @@ public class User {
 	private String first_name;
 	private String last_name;
 	private String username; 
-	private int creditScore; //between 500 1000
 	private boolean approved;
 	private double checking;
 	private double savings;
@@ -14,17 +13,24 @@ public class User {
 		super();
 	}
 	
-	public User(String first, String last, String user, int creditScore) {
+	public User(String first, String last, String user) {
 		this.first_name = first;
 		this.last_name = last;
-		this.username = user;
-		this.creditScore = creditScore;
-		
-//		this.customerId = random serial value
+		this.username = user;	
 		this.approved = false;
 		this.checking = 0;
 		this.savings = 0;
 		
+	}
+	
+	public User(int id, String first, String last, String user, boolean approved, double checking, double savings) {
+		this.customerId = id;
+		this.first_name = first;
+		this.last_name = last;
+		this.username = user;	
+		this.approved = approved;
+		this.checking = checking;
+		this.savings = savings;
 	}
 	
 	
@@ -58,14 +64,6 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public int getCreditScore() {
-		return creditScore;
-	}
-
-	public void setCreditScore(int creditScore) {
-		this.creditScore = creditScore;
 	}
 
 	public boolean isApproved() {

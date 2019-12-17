@@ -10,7 +10,8 @@ public class Employee {
 		super();
 	}
 	
-	public Employee(String first, String last, String user) {
+	public Employee(int employeeId, String first, String last, String user) {
+		this.employeeId = employeeId;
 		this.first_name = first;
 		this.last_name = last;
 		this.username = user;
