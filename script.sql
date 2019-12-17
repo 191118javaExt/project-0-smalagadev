@@ -1,10 +1,10 @@
 CREATE TABLE employee(
   emp_id SERIAL PRIMARY KEY,
-  first_name varchar(25) NOT NULL,
-  last_name varchar(25) NOT NULL,
-  username varchar (26) UNIQUE,
-  password varchar (15),
-  emp_role varchar(20)
+  first_name VARCHAR(25) NOT NULL,
+  last_name VARCHAR(25) NOT NULL,
+  username VARCHAR(26) UNIQUE NOT NULL,
+  password VARCHAR(15) NOT NULL,
+  emp_role VARCHAR(20)
 );
 
 INSERT INTO employee(first_name, last_name, username, password, emp_role)
