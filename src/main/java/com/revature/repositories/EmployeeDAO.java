@@ -8,7 +8,6 @@ import com.revature.models.User;
 public interface EmployeeDAO {
 	public List<Employee> findAll();
 	public Employee findById(int id);
-	public boolean insert(Employee e);
+	public boolean insert(Employee e, String password);
 	public boolean update(Employee e);
-	boolean insert(User u);
 }
