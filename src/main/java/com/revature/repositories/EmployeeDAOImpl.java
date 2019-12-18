@@ -23,7 +23,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		List<Employee> list = new ArrayList<>();
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
-						// This String represents the SQL which we will execute on our database
+
+
 			String sql = "SELECT * FROM employee;";
 			
 			Statement stmt = conn.createStatement();
