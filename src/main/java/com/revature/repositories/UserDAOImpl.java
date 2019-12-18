@@ -1,33 +1,135 @@
 package com.revature.repositories;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Admin;
+import org.apache.log4j.Logger;
 
-public class UserDAOImpl implements AdminDAO {
+import com.revature.models.User;
+import com.revature.util.ConnectionUtil;
+
+public class UserDAOImpl implements UserDAO {
+	
+	private static Logger logger = Logger.getLogger(UserDAOImpl.class);
 
 	@Override
-	public List<Admin> findAll() {
-		// TODO Auto-generated method stub
+	public List<User> findAll() {
+		List<User> list = new ArrayList<>();
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+
+
+			String sql = "SELECT * FROM customer;";
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next()) {
+				int id = rs.getInt("emp_id");
+				String first_name = rs.getString("first_name");
+				String last_name = rs.getString("last_name");
+				String username = rs.getString("username");
+				boolean approved = rs.getBoolean("approved");
+				double checking = rs.getDouble("checking");
+				double savings = rs.getDouble("savings");
+				
+				User u = new User(id, first_name, last_name, username, approved, checking, savings);
+				list.add(u);
+			}
+			
+			rs.close();
+		} catch(SQLException e) {
+			logger.warn("Unable to retrieve all users.", e);
+		}
+		return list;
+	}
+
+	@Override
+	public User findById(int id) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "SELECT * FROM customer WHERE = " + id + ";";
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			 
+			rs.next();
+			int customer_id = rs.getInt("customer_id");
+			String first_name = rs.getString("first_name");
+			String last_name = rs.getString("last_name");
+			String username = rs.getString("username");
+			boolean approved = rs.getBoolean("approved");
+			double checking = rs.getDouble("checking");
+			double savings = rs.getDouble("savings");
+			
+			User u = new User(customer_id, first_name, last_name, username, approved, checking, savings);
+			
+			rs.close();
+			return u;
+		} catch(SQLException ex) {
+			logger.warn("Unable to retrieve user.", ex);
+		}
 		return null;
 	}
 
 	@Override
-	public Admin findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean insert(User u, String password) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "INSERT INTO customer (first_name, last_name, username, password) " +
+					"VALUES (?, ?, ?, ?);";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, u.getFirst_name());
+			stmt.setString(2, u.getLast_name());
+			stmt.setString(3, u.getUsername());
+			stmt.setString(4, password); 
+			
+			if(!stmt.execute()) {
+				return false;
+			}
+		} catch(SQLException ex) {
+			logger.warn("Unable to create new employee.", ex);
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
-	public boolean insert(Admin a) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean update(User u) {
+try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "UPDATE employee" +
+			"SET first_name=?, last_name=?, username=?, password=?" + 
+			"WHERE customer_id = " + u.getCustomerId() + ";";
 
-	@Override
-	public boolean update(Admin a) {
-		// TODO Auto-generated method stub
-		return false;
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			stmt.setInt(1, u.getCustomerId());
+			stmt.setString(2, u.getFirst_name());
+			stmt.setString(3, u.getLast_name());
+			stmt.setString(4, u.getUsername());
+			
+
+			rs.close();
+			if(!stmt.execute()) {
+				return false;
+			}
+		} catch(SQLException e) {
+			logger.warn("Unable to edit employee.", e);
+			return false;
+		}
+		return true;
 	}
 
 }
