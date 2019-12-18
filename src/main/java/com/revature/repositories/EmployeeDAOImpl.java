@@ -43,7 +43,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			
 			rs.close();
 		} catch(SQLException e) {
-			logger.warn("Unable to retrieve all users", e);
+			logger.warn("Unable to retrieve all employees", e);
 		}
 		return list;
 	}
@@ -70,7 +70,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			rs.close();
 			return e;
 		} catch(SQLException ex) {
-			logger.warn("Unable to retrieve user.", ex);
+			logger.warn("Unable to retrieve employee.", ex);
 		}
 		return null;
 	}
@@ -93,7 +93,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				return false;
 			}
 		} catch(SQLException ex) {
-			logger.warn("Unable to create all user", ex);
+			logger.warn("Unable to create new employee.", ex);
 			return false;
 		}
 		
@@ -123,7 +123,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				return false;
 			}
 		} catch(SQLException ex) {
-			logger.warn("Unable to edit user.", ex);
+			logger.warn("Unable to edit employee.", ex);
 			return false;
 		}
 		return true;
