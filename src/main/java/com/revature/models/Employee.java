@@ -16,8 +16,6 @@ public class Employee {
 		this.last_name = last;
 		this.username = user;
 		
-//		this.employeeId = a random serial value;
-		
 	}
 	
 	public int getEmployeeId() {
