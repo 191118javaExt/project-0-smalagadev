@@ -7,7 +7,7 @@ CREATE TABLE employee(
   last_name VARCHAR(25) NOT NULL,
   username VARCHAR(26) UNIQUE NOT NULL,
   password VARCHAR(15) NOT NULL,
-  emp_role VARCHAR(20)
+  emp_role VARCHAR(20) NOT NULL
 );
 
 INSERT INTO employee(first_name, last_name, username, password, emp_role)
