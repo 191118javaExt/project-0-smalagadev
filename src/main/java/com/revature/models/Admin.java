@@ -6,8 +6,7 @@ public class Admin extends Employee {
 		super();
 	}
 	
-	public Admin(int employeeId, String first, String last, String user) {
-		super(employeeId, first, last, user);
-		
+	public Admin(int employeeId, String first, String last, String user, String password) {
+		super(employeeId, first, last, user, password);
 	}
 }

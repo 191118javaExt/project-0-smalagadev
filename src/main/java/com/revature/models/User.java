@@ -4,7 +4,8 @@ public class User {
 	private int customerId;
 	private String first_name;
 	private String last_name;
-	private String username; 
+	private String username;
+	private String password;
 	private boolean approved;
 	private double checking;
 	private double savings;
@@ -13,21 +14,24 @@ public class User {
 		super();
 	}
 	
-	public User(String first, String last, String user) {
+	public User(int customerId, String first, String last, String user, String password) {
+		this.customerId = customerId;
 		this.first_name = first;
 		this.last_name = last;
 		this.username = user;	
+		this.password = password;
 		this.approved = false;
 		this.checking = 0;
 		this.savings = 0;
 		
 	}
 	
-	public User(int id, String first, String last, String user, boolean approved, double checking, double savings) {
+	public User(int id, String first, String last, String user, String password, boolean approved, double checking, double savings) {
 		this.customerId = id;
 		this.first_name = first;
 		this.last_name = last;
 		this.username = user;	
+		this.password = password;
 		this.approved = approved;
 		this.checking = checking;
 		this.savings = savings;
@@ -90,7 +94,14 @@ public class User {
 		this.savings = savings;
 	}
 
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	
 	
 }
