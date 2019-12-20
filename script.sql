@@ -41,7 +41,7 @@ INSERT INTO customer(first_name, last_name, username, password, approved, checki
 	VALUES('Hans', 'Gruber', 'hgruber', 'nakatomi', true, 42114.87, 715922.44);
 
 INSERT INTO customer(first_name, last_name, username, password, approved, checking, saving)
-	VALUES('Cersei', 'Lannister', 'clanister', 'jamie4ever', true, 539040.90, 93101838922.84);
+	VALUES('Cersei', 'Lannister', 'clannister', 'jamie4ever', true, 539040.90, 93101838922.84);
 
 INSERT INTO customer(first_name, last_name, username, password, approved, checking, saving)
 	VALUES('Swiper', 'the Fox', 'sthefox', 'trynarobdora', true, 100.08, 57.42);
@@ -59,7 +59,7 @@ INSERT INTO customer(first_name, last_name, username, password, approved)
 	VALUES('Tekashi', 'Sixnine', 'tsixnine', 'esttuuupit');
 
 INSERT INTO customer(first_name, last_name, username, password)
-	VALUES('Gucci''s Character', 'In Springbreakers', 'ginspringbreakers', 'brrrrrrrr');
+	VALUES('Gucci''s Character', 'In Springbreakers', 'ginspringbreakers', 'beebeedubs');
 
 INSERT INTO customer(first_name, last_name, username, password)
 	VALUES('Emperor', 'Zurg', 'ezurg', 'buzzlightyear');
