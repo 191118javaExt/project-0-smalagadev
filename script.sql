@@ -14,13 +14,13 @@ INSERT INTO employee(first_name, last_name, username, password, emp_role)
 	VALUES('Aldous', 'Snow', 'ASnow', 'africanchild', 'Bank Admin');
 
 INSERT INTO employee(first_name, last_name, username, password, emp_role)
-	VALUES('John', 'McClain', 'JMcClain', 'yippeekayai', 'employee');
+	VALUES('John', 'McClain', 'JMcClain', 'yippeekayai', 'Employee');
 
 INSERT INTO employee(first_name, last_name, username, password, emp_role)
-	VALUES('John', 'Sparan', 'JSpartan', 'demolition', 'employee');
+	VALUES('John', 'Sparan', 'JSpartan', 'demolition', 'Employee');
 
 INSERT INTO employee(first_name, last_name, username, password, emp_role)
-	VALUES('John', 'Kimble', 'JKimble', 'kindergarten', 'employee');
+	VALUES('John', 'Kimble', 'JKimble', 'kindergarten', 'Employee');
 
 
 CREATE TABLE customer(
