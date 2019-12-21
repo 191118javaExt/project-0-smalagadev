@@ -6,19 +6,29 @@ public class Employee {
 	private String last_name;
 	private String username;
 	private String password;
+	private String role;
 	
 	public Employee() {
 		super();
 	}
 	
-	public Employee(int employeeId, String first, String last, String user, String password) {
+	public Employee(int employeeId, String first, String last, String user, String password, String role) {
 		this.employeeId = employeeId;
 		this.first_name = first;
 		this.last_name = last;
 		this.username = user;
 		this.password = password;
+		this.role = role;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public int getEmployeeId() {
 		return employeeId;
 	}
