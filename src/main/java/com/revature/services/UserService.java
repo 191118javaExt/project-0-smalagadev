@@ -1,7 +1,6 @@
 package com.revature.services;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import com.revature.models.User;
@@ -20,7 +19,7 @@ public class UserService {
 		repository = dao;
 	}
 	
-	public boolean options(User u) {
+	public boolean menu(User u) {
 		Scanner in = new Scanner(System.in);
 		repository = new UserDAOImpl();
 		String option;
@@ -59,7 +58,8 @@ public class UserService {
 					
 				case "3":
 					System.out.println(divider);
-					System.out.println("Transfer\n");
+					System.out.println("Transfer between accounts\n");
+					transfer(u);
 					break;
 					
 				case "4":
@@ -306,7 +306,89 @@ public class UserService {
 	}
 	
 	
-	public boolean transfer(double amount) {
-		return false;
+	public boolean transfer(User u) {String option;
+	double amount;
+	boolean running = true;
+	
+	
+	while(running){
+		System.out.println("Would you like to:\n");
+		System.out.println("1. Transfer from Checking to Savings\n2. Transfer from Savings to Checking\n3. Return to menu.");
+		option = scan.nextLine();
+		
+		switch(option) {
+			case "1":
+				
+				System.out.println("Transfer from Checking to Savings");
+				System.out.println("\nEnter amount: ");
+				System.out.println("\n\n<- Enter any non-numerical key to go back.");
+				try {						
+					amount = scan.nextDouble();
+					
+					while(amount < 0 || amount > u.getChecking()) {
+						if(amount < 0) {
+							System.out.println("Please enter a valid amount: ");
+						}
+						
+						if(amount > u.getChecking()) {
+							System.out.println("Insufficient funds. Please enter a valid amount: ");
+						}
+						
+						amount = scan.nextDouble();
+					}
+					u.setChecking(u.getChecking() - amount);
+					u.setSavings(u.getSavings() + amount);
+					System.out.println("\nNew balance: ");
+					System.out.println("Checking: $" + u.getChecking());
+					System.out.println("Savings:  $" + u.getSavings());
+				}
+				catch(InputMismatchException e) {
+					System.out.println("Returning to main menu...");
+
+				}										
+				repository.update(u); //change update functions in userDAOImpl
+				running = false;
+				break;
+				
+			case "2":
+				System.out.println("Transfer from Savings to Checking");
+				System.out.println("\nEnter amount: ");
+				System.out.println("\n\n<- Enter any non-numerical key to go back.");
+				try {						
+					amount = scan.nextDouble();
+					
+					while(amount < 0 || amount > u.getSavings()) {
+						if(amount < 0) {
+							System.out.println("Please enter a valid amount: ");
+						}
+						
+						if(amount > u.getChecking()) {
+							System.out.println("Insufficient funds. Please enter a valid amount: ");
+						}
+						
+						amount = scan.nextDouble();
+					}
+					u.setSavings(u.getSavings() - amount);
+					u.setChecking(u.getChecking() + amount);
+					System.out.println("\nNew balance: ");
+					System.out.println("Savings:  $" + u.getSavings());
+					System.out.println("Checking: $" + u.getChecking());
+				}
+				catch(InputMismatchException e) {
+					System.out.println("Returning to main menu...");
+
+				}										
+				repository.update(u); //change update functions in userDAOImpl
+				running = false;
+				break;
+			case "3":
+				running = false;
+				break;	
+			default:
+				System.out.println("Enter a valid option.");			
+		}
+	}
+	
+	return false;
 	}
 }
