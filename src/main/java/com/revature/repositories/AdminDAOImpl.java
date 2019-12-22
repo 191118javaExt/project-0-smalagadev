@@ -16,6 +16,7 @@ import com.revature.util.ConnectionUtil;
 public class AdminDAOImpl implements AdminDAO {
 	
 	private static Logger logger = Logger.getLogger(AdminDAOImpl.class);
+	
 
 	@Override
 	public List<Admin> findAll() {
@@ -35,8 +36,10 @@ public class AdminDAOImpl implements AdminDAO {
 				String first_name = rs.getString("first_name");
 				String last_name = rs.getString("last_name");
 				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String role = rs.getString("emp_role");
 				
-				Admin a = new Admin(id, first_name, last_name, username);
+				Admin a = new Admin(id, first_name, last_name, username, password, role);
 				list.add(a);
 			}
 			
@@ -52,9 +55,49 @@ public class AdminDAOImpl implements AdminDAO {
 
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
-			String sql = "SELECT * FROM employee WHERE = " + id + ";";
+			String sql = "SELECT * FROM employee WHERE emp_id= ?;";
 			
-			Statement stmt = conn.createStatement();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			
+		
+			
+			rs.next();
+			int emp_id = rs.getInt("emp_id");
+			String first_name = rs.getString("first_name");
+			String last_name = rs.getString("last_name");
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+			String role = rs.getString("emp_role");
+			
+			Admin a = new Admin(emp_id, first_name, last_name, username, password, role);
+			
+			rs.close();
+			return a;
+		} catch(SQLException ex) {
+			logger.warn("Unable to retrieve admin.", ex);
+		}
+		return null;
+	}
+	
+	@Override
+	public Admin findByUsername(String attemptedUsername) {
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "SELECT * FROM employee WHERE username = '?';";
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, attemptedUsername);
+			
+			if(stmt.execute()) {
+				return null;
+			}
 			
 			ResultSet rs = stmt.executeQuery(sql);
 			 
@@ -63,13 +106,15 @@ public class AdminDAOImpl implements AdminDAO {
 			String first_name = rs.getString("first_name");
 			String last_name = rs.getString("last_name");
 			String username = rs.getString("username");
+			String password = rs.getString("password");
+			String role = rs.getString("emp_role");
 			
-			Admin a = new Admin(emp_id, first_name, last_name, username);
+			Admin a = new Admin(emp_id, first_name, last_name, username, password, role);
 			
 			rs.close();
 			return a;
 		} catch(SQLException ex) {
-			logger.warn("Unable to retrieve admin.", ex);
+			logger.warn("Unable to retrieve employee.", ex);
 		}
 		return null;
 	}

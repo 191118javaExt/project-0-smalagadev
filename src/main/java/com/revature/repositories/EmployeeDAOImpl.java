@@ -36,8 +36,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				String first_name = rs.getString("first_name");
 				String last_name = rs.getString("last_name");
 				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String role = rs.getString("emp_role");
 				
-				Employee e = new Employee(id, first_name, last_name, username);
+				Employee e = new Employee(id, first_name, last_name, username, password, role);
 				list.add(e);
 			}
 			
@@ -53,7 +55,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
-			String sql = "SELECT * FROM employee WHERE = " + id + ";";
+			String sql = "SELECT * FROM employee WHERE emp_id = " + id + ";";
 			
 			Statement stmt = conn.createStatement();
 			
@@ -64,8 +66,39 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			String first_name = rs.getString("first_name");
 			String last_name = rs.getString("last_name");
 			String username = rs.getString("username");
+			String password = rs.getString("password");
+			String role = rs.getString("emp_role");
 			
-			Employee e = new Employee(emp_id, first_name, last_name, username);
+			Employee e = new Employee(emp_id, first_name, last_name, username, password, role);
+			
+			rs.close();
+			return e;
+		} catch(SQLException ex) {
+			logger.warn("Unable to retrieve employee.", ex);
+		}
+		return null;
+	}
+	
+	@Override
+	public Employee findByUsername(String attemptedUsername) {
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "SELECT * FROM employee WHERE username = '" + attemptedUsername + "';";
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			 
+			rs.next();
+			int emp_id = rs.getInt("emp_id");
+			String first_name = rs.getString("first_name");
+			String last_name = rs.getString("last_name");
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+			String role = rs.getString("emp_role");
+			
+			Employee e = new Employee(emp_id, first_name, last_name, username, password, role);
 			
 			rs.close();
 			return e;
@@ -87,7 +120,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			stmt.setString(2, e.getLast_name());
 			stmt.setString(3, e.getUsername());
 			stmt.setString(4, password); 
-			stmt.setString(5, "employee");
+			stmt.setString(5, "Employee");
 			
 			if(!stmt.execute()) {
 				return false;

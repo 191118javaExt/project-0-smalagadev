@@ -35,11 +35,12 @@ public class UserDAOImpl implements UserDAO {
 				String first_name = rs.getString("first_name");
 				String last_name = rs.getString("last_name");
 				String username = rs.getString("username");
+				String password = rs.getString("password");
 				boolean approved = rs.getBoolean("approved");
 				double checking = rs.getDouble("checking");
 				double savings = rs.getDouble("savings");
 				
-				User u = new User(id, first_name, last_name, username, approved, checking, savings);
+				User u = new User(id, first_name, last_name, username, password, approved, checking, savings);
 				list.add(u);
 			}
 			
@@ -65,11 +66,43 @@ public class UserDAOImpl implements UserDAO {
 			String first_name = rs.getString("first_name");
 			String last_name = rs.getString("last_name");
 			String username = rs.getString("username");
+			String password = rs.getString("password");
 			boolean approved = rs.getBoolean("approved");
 			double checking = rs.getDouble("checking");
 			double savings = rs.getDouble("savings");
 			
-			User u = new User(customer_id, first_name, last_name, username, approved, checking, savings);
+			User u = new User(customer_id, first_name, last_name, username, password, approved, checking, savings);
+			
+			rs.close();
+			return u;
+		} catch(SQLException ex) {
+			logger.warn("Unable to retrieve user.", ex);
+		}
+		return null;
+	}
+	
+	@Override
+	public User findByUsername(String attemptedUsername) {
+		
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "SELECT * FROM customer WHERE username = '" + attemptedUsername + "';";
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			 
+			rs.next();
+			int customer_id = rs.getInt("customer_id");
+			String first_name = rs.getString("first_name");
+			String last_name = rs.getString("last_name");
+			String username = rs.getString("username");
+			String password = rs.getString("password");
+			boolean approved = rs.getBoolean("approved");
+			double checking = rs.getDouble("checking");
+			double savings = rs.getDouble("saving");
+			
+			User u = new User(customer_id, first_name, last_name, username, password, approved, checking, savings);
 			
 			rs.close();
 			return u;
@@ -102,10 +135,11 @@ public class UserDAOImpl implements UserDAO {
 		
 		return true;
 	}
-
+	
+	
 	@Override
 	public boolean update(User u) {
-try (Connection conn = ConnectionUtil.getConnection()) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
 			
 			String sql = "UPDATE employee" +
 			"SET first_name=?, last_name=?, username=?, password=?" + 
