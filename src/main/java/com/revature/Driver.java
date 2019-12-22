@@ -27,7 +27,7 @@ public class Driver {
 		
 
 		
-		do {
+		while(running){
 			System.out.println(divider);
 			System.out.println(optionText);
 			System.out.println("1. Employee Login\n2. Customer Login\n3. Sign up\n4. Exit");
@@ -39,15 +39,16 @@ public class Driver {
 				case "1":
 					System.out.println(divider);
 					System.out.println("Employee Login");
-					e = es.login(); // return values will be updated
-					if(e.getRole().equals("Bank Admin")) {
-						a = new Admin(e);
-						running = as.options(a);
+					e = es.login();
+					if(e != null) {
+						if(e.getRole().equals("Bank Admin")) {
+							a = new Admin(e);
+							running = as.menu(a);
+						}
+						else {
+							running = es.menu(e);
+						}
 					}
-					else {
-						running = es.options(e);
-					}
-					
 					break;
 					
 				case "2":
@@ -55,7 +56,7 @@ public class Driver {
 					System.out.println("Customer Login");
 					u = us.login();
 					if(u != null) {
-						running = us.options(u);
+						running = us.menu(u);
 					}	
 					break;
 					
@@ -66,7 +67,6 @@ public class Driver {
 					break;
 					
 				case "4":
-
 					running = false;
 					break;
 					
@@ -75,11 +75,9 @@ public class Driver {
 				} 
 			}
 			catch (Exception ex) {
-				System.out.println("Please enter a valid number to make a selection.");
-				
+				System.out.println("\nPlease enter a valid number to make a selection.");
 			}
-			
-		}while(running);
+		}
 		
 		in.close();
 		System.out.println(divider);
