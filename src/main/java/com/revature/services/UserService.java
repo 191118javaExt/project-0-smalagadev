@@ -29,8 +29,7 @@ public class UserService {
 		String divider = "\n===================";
 		String optionText = "\nSelect from your options:\n";
 		
-		if(u.isApproved()) {}
-		else {
+		if(!u.isApproved()) {
 			System.out.println("Your account has not yet been approved.");
 			System.out.println("Press Enter to continue.");
 			in.nextLine();
@@ -86,7 +85,7 @@ public class UserService {
 			
 		}while(running);
 		in.close();
-		return running;
+		return true;
 	}
 	
 	public User login() {
@@ -126,13 +125,21 @@ public class UserService {
 		System.out.println("Enter your last name: ");
 		String last = scan.nextLine();
 		System.out.println("Enter a username: ");
-		String user = scan.nextLine();
+		String user = scan.nextLine().toLowerCase();
 		System.out.println("Enter a password: ");
 		String password = scan.nextLine();
 		
-		User u = new User(0, first, last, user, password); // 0 will be ignored when creating the record for the table.
-		System.out.println("Thank you for your submission. You will have access to your account when our bank administator approves your application.");
-		return repository.insert(u, password);
+		try {
+			User u = new User(0, first, last, user, password); // 0 will be ignored when creating the record for the table.
+			System.out.println("Thank you for your submission. You will have access to your account when our bank administator approves your application.");
+			return repository.insert(u, password);
+		}
+		catch(Exception e) {
+			System.out.println("Account could not be created. Please try again.");
+			return false;
+		}
+		
+		
 	}
 	
 	public boolean withdraw(User u) {
@@ -296,8 +303,6 @@ public class UserService {
 
 		System.out.println("\nPress Enter to continue to menu.");
 		scan.nextLine();
-		
-
 	}
 	
 	
