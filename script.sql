@@ -31,7 +31,7 @@ CREATE TABLE customer(
 	password VARCHAR(16) NOT NULL,
 	approved BOOLEAN,
 	checking DECIMAL,
-	saving DECIMAL
+	savings DECIMAL
 );
 
 INSERT INTO customer(first_name, last_name, username, password, approved, checking, saving)
@@ -41,7 +41,7 @@ INSERT INTO customer(first_name, last_name, username, password, approved, checki
 	VALUES('Hans', 'Gruber', 'hgruber', 'nakatomi', true, 42114.87, 715922.44);
 
 INSERT INTO customer(first_name, last_name, username, password, approved, checking, saving)
-	VALUES('Cersei', 'Lannister', 'clannister', 'jamie4ever', true, 539040.90, 93101838922.84);
+	VALUES('Cersei', 'Lannister', 'clannister', 'jamie4ever', true, 539040.90, 93103922.84);
 
 INSERT INTO customer(first_name, last_name, username, password, approved, checking, saving)
 	VALUES('Swiper', 'the Fox', 'sthefox', 'trynarobdora', true, 100.08, 57.42);
