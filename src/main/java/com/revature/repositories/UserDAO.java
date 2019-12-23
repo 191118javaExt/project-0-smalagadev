@@ -10,4 +10,5 @@ public interface UserDAO {
 	public User findByUsername(String username);
 	public boolean insert(User u, String password);
 	public boolean update(User u);
+	public boolean delete(User u);
 }

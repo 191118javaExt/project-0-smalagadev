@@ -31,7 +31,7 @@ public class UserDAOImpl implements UserDAO {
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				int id = rs.getInt("emp_id");
+				int id = rs.getInt("customer_id");
 				String first_name = rs.getString("first_name");
 				String last_name = rs.getString("last_name");
 				String username = rs.getString("username");
@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
 	public User findById(int id) {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			
-			String sql = "SELECT * FROM customer WHERE = " + id + ";";
+			String sql = "SELECT * FROM customer WHERE customer_id = " + id + ";";
 			
 			Statement stmt = conn.createStatement();
 			
@@ -100,7 +100,7 @@ public class UserDAOImpl implements UserDAO {
 			String password = rs.getString("password");
 			boolean approved = rs.getBoolean("approved");
 			double checking = rs.getDouble("checking");
-			double savings = rs.getDouble("saving");
+			double savings = rs.getDouble("savings");
 			
 			User u = new User(customer_id, first_name, last_name, username, password, approved, checking, savings);
 			
@@ -166,4 +166,27 @@ public class UserDAOImpl implements UserDAO {
 		return true;
 	}
 
+	@Override
+	public boolean delete(User u) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			
+			String sql = "DELETE FROM customers WHERE customer_id = ? ;";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			stmt.setInt(1, u.getCustomerId());
+			
+
+			rs.close();
+			if(!stmt.execute()) {
+				return false;
+			}
+		} catch(SQLException e) {
+			logger.warn("Unable to delete employee.", e);
+			return false;
+		}
+		return true;
+	}
 }
