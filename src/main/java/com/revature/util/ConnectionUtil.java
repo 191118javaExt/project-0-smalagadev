@@ -20,7 +20,7 @@ public class ConnectionUtil {
 		
 		try{
 			conn = DriverManager.getConnection(url, username, password);
-			logger.log(Level.INFO, "Connected to database.");
+//			logger.log(Level.INFO, "Connected to database.");
 		} catch (SQLException e) {
 			logger.warn("Unable to connect to database.", e);
 		}
